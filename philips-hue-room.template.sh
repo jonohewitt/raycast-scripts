@@ -30,7 +30,7 @@
 
 # The script uses comma separated HSB, a.k.a HSV, (Hue: 0-360, Saturation: 0-100, Brightness: 0-100) for inputting colour information. If only one number is provided, it is assumed to be brightness (0-100)
 
-# Remember to remove .template from the file name after you have add your details to the script.
+# Remember to remove .template from the file name after you have added your details to the script.
 
 hueBridgeIP="<enter bridge IP here>"
 userID="<enter username here>"
@@ -49,7 +49,7 @@ if [[ $1 ]]; then
     if [[ $1 == "on" ]]; then
         on=true
 
-        # Decide if you'd like the "on" preset to return to their most recently set colour
+        # Decide if you'd like the "on" preset to return to the most recently set colour
         # or overwrite the last set colour and return to a default colour, e.g:
 
         # hue=45
