@@ -73,7 +73,7 @@ if [[ $1 ]]; then
 
         # Add more presets here with additional elif statements, e.g:
 
-    # elif [[ $1 == "<your arbitrary preset name>" ]]; then
+        # elif [[ $1 == "<your arbitrary preset name>" ]]; then
 
         # on=true
         # hue=<your hue value: 0-360>
@@ -88,8 +88,6 @@ if [[ $1 ]]; then
 fi
 
 # --- End of Preset section --- #
-
-
 
 # If an HSB argument is provided, this section tests and assigns the values from it
 # This section doesn't require any additional configuration
@@ -126,21 +124,21 @@ if [[ $2 ]]; then
             echo "Bad value input!"
             exit 1
         else
-            echo $1
+            echo "$1"
         fi
     }
 
     # If the array only has one entry, assign it to brightness
     if [[ ${#hsbArray[@]} == 1 ]]; then
-        testValue ${hsbArray[0]} 100
+        testValue "${hsbArray[0]}" 100
         bri=${hsbArray[0]}
         on=true
 
     # Otherwise assign each entry as HSB values
     else
-        testValue ${hsbArray[0]} 360
-        testValue ${hsbArray[1]} 100
-        testValue ${hsbArray[2]} 100
+        testValue "${hsbArray[0]}" 360
+        testValue "${hsbArray[1]}" 100
+        testValue "${hsbArray[2]}" 100
         hue=${hsbArray[0]}
         sat=${hsbArray[1]}
         bri=${hsbArray[2]}
@@ -150,9 +148,7 @@ fi
 
 # --- End of colour value section --- #
 
-
-
-### CHOOSE ROOM NAMES AND ASSIGN ROOM IDs HERE 
+### CHOOSE ROOM NAMES AND ASSIGN ROOM IDs HERE
 ### The $defaultRoomID will be used if no room argument is included in the Raycast command
 
 roomID=$defaultRoomID
@@ -178,17 +174,15 @@ fi
 
 # --- End of room section --- #
 
-
-
 generateData() {
     # If there is colour information, convert the colour model and include it in the data
     if [[ $hue ]]; then
         cat <<EOF
 {
 	"on":$on,
-    "hue":$(($hue * 65535 / 360 | bc)),
-    "sat":$(($sat * 254 / 100 | bc)),
-    "bri":$(($bri * 254 / 100 | bc))
+    "hue":$((hue * 65535 / 360 | bc)),
+    "sat":$((sat * 254 / 100 | bc)),
+    "bri":$((bri * 254 / 100 | bc))
 }
 EOF
     # If there is only brightness information, update it without overwriting the existing colour data
@@ -196,7 +190,7 @@ EOF
         cat <<EOF
 {
 	"on":$on,
-    "bri":$(($bri * 254 / 100 | bc))
+    "bri":$((bri * 254 / 100 | bc))
 }
 EOF
     # Otherwise only change the "on" state without overwriting the existing colour data
@@ -209,7 +203,7 @@ EOF
     fi
 }
 
-curl --show-error --silent --output /dev/null $hueBridgeIP/api/$userID/groups/$roomID/action \
+curl --show-error --silent --output /dev/null "$hueBridgeIP"/api/"$userID"/groups/"$roomID"/action \
     --request PUT \
     --header "Content-Type: application/json" \
     --data "$(generateData)"
