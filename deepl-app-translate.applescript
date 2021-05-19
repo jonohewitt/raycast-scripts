@@ -1,7 +1,7 @@
 #!/usr/bin/osascript
 
 # Dependency: This script requires DeepL to be installed: https://deepl.com/app
-# Tested with DeepL for Mac Version 2.3.41773
+# Tested with DeepL for Mac Version 2.4.50523
 
 # Once installed, DeepL will run in the background even if you quit the app from the dock
 # This script will work as long as the DeepL icon is visible in the menu bar in the top right
