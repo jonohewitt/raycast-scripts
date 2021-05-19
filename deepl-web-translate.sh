@@ -54,11 +54,11 @@ inputText=$1
 toLang=$2
 fromLang=$3
 
-if [ -z $2 ]; then
+if [[ -z $2 ]]; then
    toLang=$defaultLang
 fi
 
-if [ -z $3]; then
+if [[ -z $3 ]]; then
    fromLang=$defaultLang
 fi
 
